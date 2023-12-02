@@ -22,7 +22,8 @@ const targetCart = carts.find((cart) => cart.id === cid)
 
     res.send({
         status:"success",
-        msg:`Productos del carrito con ID: ${cid}`
+        msg:`Productos del carrito con ID: ${cid}`,
+        data: targetCart
     })
 })
 
