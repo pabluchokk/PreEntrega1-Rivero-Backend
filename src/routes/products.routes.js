@@ -101,4 +101,6 @@ await productManagerFile.createProduct(products)
     })
 })
 
+
+
 export {router as productRouter}

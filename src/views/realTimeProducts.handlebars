@@ -1,0 +1,45 @@
+<div>
+    <h1>Lista de productos en tiempo real</h1>
+    <ul id="realTimeProductList">
+        {{#each productos}}
+            <li>{{this.title}} - {{this.description}} - {{this.price}}</li>
+        {{/each}}
+    </ul>
+    <form action="/api/products" method="post">
+        <label for="productId">Id:</label>
+        <input type="number" name="id" id="productId">
+
+        <label for="productTitle">Titulo: </label>
+        <input type="text" name="title" id="productTItle">
+        
+        <label for="productDescription">Descripción:</label>
+        <input type="text" name="description" id="productDescription">
+
+        <label for="productPrice">Precio:</label>
+        <input type="number" name="price" id="productPrice">
+
+        <label for="productPrice">Stock:</label>
+        <input type="number" name="stock" id="productStock">
+
+        <label for="productCategory">Categoria:</label>
+        <input type="text" name="category" id="productCategory">
+        
+        <button type="submit">Agregar producto</button>
+    </form>
+</div>
+
+<script src="/socket.io/socket.io.js"></script>
+<script>
+    const socket = io();
+
+    socket.on('updateProducts', (updatedProducts) =>{
+        const productList = document.getElementById('realTimeProductList');
+        productList.innerHTML = '' // Lista vacía
+
+        updatedProducts.forEach((product) => {
+            const listItem = document.createElement('li')
+            listItem.textContent = `${product.title} - ${product.description} - ${product.price}`
+            productList.appendChild(listItem)
+        })
+    })
+</script>
